@@ -5,7 +5,8 @@ export default StyleSheet.create({
         gap: 10
     },
     image: {
-        width: 400,
+        resizeMode: 'contain',
+        width: 350,
         height: 300,
         alignSelf: 'center'
     },

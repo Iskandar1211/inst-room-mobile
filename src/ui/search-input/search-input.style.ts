@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     searchContainer: {
-        backgroundColor: 'silver',
+        backgroundColor: 'white',
         padding: 2,
         paddingHorizontal: 5,
         flexDirection: 'row',

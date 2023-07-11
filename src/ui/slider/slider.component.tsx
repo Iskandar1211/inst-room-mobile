@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native';
 import styles from './slider.style';
-import uuid from 'react-native-uuid';
 
 interface IImage {
   id: string | number[];
@@ -18,35 +17,35 @@ interface IImage {
 export function Slider() {
   const [images, setImages] = useState<IImage[]>([
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/1/saw.png'),
     },
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/1/garden.png'),
     },
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/1/molyar.jpg'),
     },
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/1/nasosi.jpeg'),
     },
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/3/paint.png'),
     },
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/3/paint2.jpg'),
     },
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/3/paint3.jpg'),
     },
     {
-      id: uuid.v4(),
+      id: Math.random().toString(),
       imgSrc: require('../../../public/images/slider/3/paint4.jpg'),
     },
   ]);

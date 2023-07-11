@@ -4,10 +4,6 @@ export default StyleSheet.create({
         flex: 1,
         paddingHorizontal: 10,
     },
-    containerSearchInput: {
-        marginTop: 5,
-        alignItems: 'center'
-    },
     title: {
         fontSize: 20,
         fontWeight: 'bold',

@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CatalogIcon from 'react-native-vector-icons/FontAwesome';
 import CartIcon from 'react-native-vector-icons/FontAwesome5';
-import FavoriteIcon from 'react-native-vector-icons/FontAwesome5'
+import FavoriteIcon from 'react-native-vector-icons/FontAwesome5';
 import {HomeScreen} from '../home.screen/home-screen.component';
 import {FavoriteScreenPage} from '../favorite.screen/favorite-screen.component';
 import {ProfileScreen} from '../profile-screen/profile-screen.component';
@@ -38,6 +38,7 @@ export function BottomTab() {
           tabBarIcon: ({color, size}) => (
             <CatalogIcon name="align-left" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -48,6 +49,7 @@ export function BottomTab() {
           tabBarIcon: ({color, size}) => (
             <CartIcon name="shopping-bag" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -58,6 +60,7 @@ export function BottomTab() {
           tabBarIcon: ({color, size}) => (
             <FavoriteIcon name="heart" color={color} size={size} />
           ),
+          headerShown: false,
           tabBarBadge: 0,
         }}
       />
@@ -70,6 +73,7 @@ export function BottomTab() {
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

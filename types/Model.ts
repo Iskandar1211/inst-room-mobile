@@ -5,7 +5,7 @@ import { ImageProps } from "react-native";
 export interface IProductM {
     id: string,
     name: string,
-    img: ImageProps,
+    img: any,
     price: number,
     inStock: boolean,
     detailed: string,
