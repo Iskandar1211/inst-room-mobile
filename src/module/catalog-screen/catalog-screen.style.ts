@@ -31,5 +31,8 @@ export default StyleSheet.create({
         color: 'black',
         fontSize: 10,
         fontWeight: '400'
+    },
+    containerCards: {
+        width: "100%"
     }
 })

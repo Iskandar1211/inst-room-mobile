@@ -1,13 +1,14 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Image, ScrollView, Text, TouchableHighlight, View} from 'react-native';
 import {IProductM} from '../../../types/Model';
-import {useAppSelector} from '../../store/hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
 import {CatalogCard} from '../../ui/catalog-card/catalog-card.component';
 import {SearchInput} from '../../ui/search-input/saearch-input.component';
 import styles from './catalog-screen.style';
 
 export function CatalogScreen() {
   const products = useAppSelector(state => state.products.products);
+  const dispatch = useAppDispatch();
 
   const [categories, setCategories] = useState('');
   let categori: string = '';
@@ -23,12 +24,25 @@ export function CatalogScreen() {
 
   const [filteredProducts, setFilteredProducts] = useState<IProductM[]>([]);
 
+  useEffect(() => {
+    setFilteredProducts(products.filter(product => product.isNew === true));
+    setSelectedItem('Новинки');
+  }, []);
+
   const [selectedItem, setSelectedItem] = useState<string>('');
 
   const onFilteredProducts = (item: string) => {
     setSelectedItem(item);
-    const filter = products.filter(product => product.categories === item);
-    setFilteredProducts(filter);
+    if (item === 'Новинки') {
+      const filter = products.filter(product => product.isNew === true);
+      setFilteredProducts(filter);
+    } else if (item === 'Акции') {
+      const filter = products.filter(product => product.isNew !== true);
+      setFilteredProducts(filter);
+    } else if (item !== 'Новинки' && item !== 'Акции') {
+      const filter = products.filter(product => product.categories === item);
+      setFilteredProducts(filter);
+    }
   };
 
   return (
@@ -61,7 +75,6 @@ export function CatalogScreen() {
                 {
                   backgroundColor:
                     selectedItem === 'Акции' ? '#F05A00' : 'white',
-                  
                 },
               ]}>
               <Image
@@ -112,7 +125,9 @@ export function CatalogScreen() {
                 styles.navigateButton,
                 {
                   backgroundColor:
-                    selectedItem === 'Электрооборудование' ? '#F05A00' : 'white',
+                    selectedItem === 'Электрооборудование'
+                      ? '#F05A00'
+                      : 'white',
                 },
               ]}>
               <Image
@@ -140,7 +155,7 @@ export function CatalogScreen() {
             </View>
           </TouchableHighlight>
         </View>
-        <View>
+        <View style={styles.containerCards}>
           {filteredProducts.map(product => (
             <CatalogCard key={product.id} product={product} />
           ))}
