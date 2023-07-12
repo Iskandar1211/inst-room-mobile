@@ -50,5 +50,10 @@ export default StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 18
+    },
+    dots: {
+        position: 'absolute',
+        right: 5,
+        top: 2
     }
 })

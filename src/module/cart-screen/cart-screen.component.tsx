@@ -13,7 +13,9 @@ import Plus from 'react-native-vector-icons/Feather';
 import {decrementQuantity, incrementQuantity} from '../../store/reducers/Cart';
 import Button from '../../ui/button/button.component';
 import {useState} from 'react';
-import {ModalBottom} from '../../ui/modal-bottom/modal-bottom.component';
+import {ModalBottom} from '../../ui/modals/modal-bottom.component';
+import Dots from 'react-native-vector-icons/Entypo';
+import {ModalOptionsCart} from '../../ui/modals/modal-options-cart.component';
 
 export function CartScreen() {
   const productInCart = useAppSelector(state => state.cart.items);
@@ -26,10 +28,18 @@ export function CartScreen() {
   const discount = (totalPrice / 100) * 5;
 
   const [modalVisibleProfile, setModalVisibleProfile] = useState(false);
+  const [modalVisibleOptions, setModalVisibleOptions] = useState(false);
 
   return (
     <View style={styles.cart}>
       <Text style={styles.title}>Корзина</Text>
+      {productInCart.length === 0 && (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{fontSize: 25, color: 'black'}}>
+            Ваша корзина еще пусто
+          </Text>
+        </View>
+      )}
       <ScrollView style={styles.cartItemBox}>
         {productInCart.map(product => (
           <View style={styles.cartItem} key={product.id}>
@@ -50,15 +60,28 @@ export function CartScreen() {
               </View>
               <Text>{product.total} ₽</Text>
             </View>
+            <TouchableOpacity
+              onPress={() => setModalVisibleOptions(true)}
+              style={styles.dots}>
+              <Dots size={17} name="dots-three-horizontal" />
+            </TouchableOpacity>
+            <ModalOptionsCart
+              idForDelet={product.id}
+              product={product}
+              modalVisibleProfile={modalVisibleOptions}
+              setModalVisibleProfile={setModalVisibleOptions}
+            />
           </View>
         ))}
       </ScrollView>
-      <Button
-        onPress={() => setModalVisibleProfile(true)}
-        title={`Прейти к оформление заказа \n     ${productInCart.length} товара на сумму ${totalPrice} ₽`}
-        styleView={styles.buttonView}
-        styleText={styles.buttonText}
-      />
+      {productInCart.length > 0 && (
+        <Button
+          onPress={() => setModalVisibleProfile(true)}
+          title={`Прейти к оформление заказа \n     ${productInCart.length} товара на сумму ${totalPrice} ₽`}
+          styleView={styles.buttonView}
+          styleText={styles.buttonText}
+        />
+      )}
       <ModalBottom
         modalVisibleProfile={modalVisibleProfile}
         setModalVisibleProfile={setModalVisibleProfile}

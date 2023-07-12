@@ -29,7 +29,12 @@ function App(): JSX.Element {
           options={{headerShown: false}}
           component={BottomTab}
         />
-        <Stack.Screen name="ProductInfo" component={ProductInfo} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ProductInfo"
+          component={ProductInfo}
+        />
+        {/* <BottomTab /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,32 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IProductM } from '../../../types/Model'
 import { RootState } from '../store'
 
 interface FavoritesState {
-    items: Item[]
+    items: IProductM[]
 }
 
-export interface Item {
-    id: string,
-    name: string,
-    img: string,
-    price: number,
-    inStock: boolean,
-    detailed: string,
-    isNew: boolean,
-    total: number,
-    quantity: number,
-    categories: string
-}
 
 const initialState: FavoritesState = {
     items: [],
 }
 
 export const Favorites = createSlice({
-    name: 'cart',
+    name: 'favorites',
     initialState,
     reducers: {
-        addToFavorites: (state, action: PayloadAction<Item>) => { 
+        addToFavorites: (state, action: PayloadAction<IProductM>) => {
             state.items.push(action.payload);
         },
 

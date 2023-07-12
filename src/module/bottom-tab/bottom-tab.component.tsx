@@ -22,6 +22,8 @@ type TabNavigationParams = {
 export function BottomTab() {
   const Tab = createBottomTabNavigator<TabNavigationParams>();
   const cart = useAppSelector(state => state.cart.items);
+  const favorites = useAppSelector(state => state.favorites.items);
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -71,7 +73,7 @@ export function BottomTab() {
             <FavoriteIcon name="heart" color={color} size={size} />
           ),
           headerShown: false,
-          tabBarBadge: 0,
+          tabBarBadge: favorites.length,
         }}
       />
 
