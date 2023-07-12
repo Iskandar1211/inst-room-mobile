@@ -1,21 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IProductM } from '../../../types/Model'
 import { RootState } from '../store'
 
 interface CartState {
-    items: Item[]
-}
-
-export interface Item {
-    id: string,
-    name: string,
-    img: string,
-    price: number,
-    inStock: boolean,
-    detailed: string,
-    isNew: boolean,
-    total: number,
-    quantity: number,
-    categories: string
+    items: IProductM[]
 }
 
 const initialState: CartState = {
@@ -26,8 +14,8 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state, action: PayloadAction<Item>) => {
-            const newItem: Item = {
+        addToCart: (state, action: PayloadAction<IProductM>) => {
+            const newItem: IProductM = {
                 ...action.payload,
                 total: action.payload.price,
                 quantity: 1
@@ -55,9 +43,9 @@ export const cartSlice = createSlice({
             const item = state.items.find(item => item.id === itemId)
             if (item) {
                 // Обновите свойство quantity
-                item.quantity = (item.quantity || 0) + 1
+                item.quantity = (item.quantity || 1) + 1
                 // Обновите свойство total
-                item.total = (item.total || 0) + item.price
+                item.total = (item.total || 1) + item.price
             }
         },
         decrementQuantity: (state, action: PayloadAction<string>) => {
@@ -71,7 +59,6 @@ export const cartSlice = createSlice({
                     item.total = (item.total || 0) - item.price
                 }
             }
-
         },
     },
 })

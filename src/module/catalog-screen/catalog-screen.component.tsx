@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
 import {Image, ScrollView, Text, TouchableHighlight, View} from 'react-native';
-import {IProductM} from '../../../types/Model';
+import {IProductM, RootNavigationProps} from '../../../types/Model';
 import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
 import {CatalogCard} from '../../ui/catalog-card/catalog-card.component';
 import {SearchInput} from '../../ui/search-input/saearch-input.component';
 import styles from './catalog-screen.style';
 
-export function CatalogScreen() {
+export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
   const products = useAppSelector(state => state.products.products);
   const dispatch = useAppDispatch();
 
@@ -45,13 +45,30 @@ export function CatalogScreen() {
     }
   };
 
+  const [searchValue, setSearchValue] = useState('');
+
+  const onSearchMessages = (text: string) => {
+    setSearchValue(text);
+    setSelectedItem('');
+    if (text === '') {
+      setFilteredProducts([]);
+    } else {
+      setFilteredProducts(
+        products.filter(product => product.name.toLowerCase().includes(text)),
+      );
+    }
+  };
+  console.log(searchValue);
+
   return (
     <View style={styles.catalogContainer}>
       <View style={styles.containerSearchInput}>
-        <SearchInput />
+        <SearchInput
+          onSearchMessages={onSearchMessages}
+          searchValue={searchValue}
+        />
       </View>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.navigateButtons}>
+      <View style={styles.navigateButtons}>
           <TouchableHighlight onPress={() => onFilteredProducts('Новинки')}>
             <View
               style={[
@@ -155,11 +172,11 @@ export function CatalogScreen() {
             </View>
           </TouchableHighlight>
         </View>
-        <View style={styles.containerCards}>
+      <ScrollView style={styles.scrollView}>
+
           {filteredProducts.map(product => (
-            <CatalogCard key={product.id} product={product} />
+            <CatalogCard navigation={navigation} key={product.id} product={product} />
           ))}
-        </View>
       </ScrollView>
     </View>
   );

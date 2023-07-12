@@ -7,6 +7,7 @@ import {CardItem} from '../../ui/card/card.component';
 import {Slider} from '../../ui/slider/slider.component';
 import styles from './home-screen.style';
 
+
 export function HomeScreen({navigation}: RootNavigationProps<'Home'>) {
   const [paintingSupplies, setPaintingSupplies] = useState<IProductM[]>([]);
   const [overalls, setOveralls] = useState<IProductM[]>([]);

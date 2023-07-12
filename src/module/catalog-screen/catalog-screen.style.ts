@@ -1,16 +1,19 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     catalogContainer: {
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        flex:1
     },
     containerSearchInput: {
         marginTop: 5,
         alignItems: 'center'
     },
     scrollView: {
-        marginTop: 10,
+        marginTop: 15,
     },
     navigateButtons: {
+        marginTop:10,
+       justifyContent:'center',
         gap: 4,
         flexDirection: 'row',
         flexWrap: 'wrap',

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     catalogCard: {
-        marginTop: 10,
+        marginBottom: 10,
         padding: 5,
         backgroundColor: 'white',
 

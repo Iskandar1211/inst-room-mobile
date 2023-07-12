@@ -13,14 +13,19 @@ import {StyleSheet} from 'react-native';
 import {BottomTab} from './src/module/bottom-tab/bottom-tab.component';
 import ProductInfo from './src/module/product-info/product-info.component';
 
+type StackNavigationParams = {
+  BottomTab: undefined;
+  ProductInfo: undefined;
+};
+
 function App(): JSX.Element {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<StackNavigationParams>();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="BottomTab">
         <Stack.Screen
-          name="Home"
+          name="BottomTab"
           options={{headerShown: false}}
           component={BottomTab}
         />

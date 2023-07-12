@@ -32,6 +32,13 @@ export default StyleSheet.create({
         borderRadius: 5,
         fontSize: 10,
     },
+    buttonViewAdd: {
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        backgroundColor: '#212526',
+        borderRadius: 5,
+        fontSize: 10,
+    },
     buttonText: {
         textAlign: 'center',
         color: 'white',
@@ -39,5 +46,5 @@ export default StyleSheet.create({
     },
     cardBody: {
         gap: 5,
-    }
+    },
 })

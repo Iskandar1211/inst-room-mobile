@@ -9,10 +9,19 @@ import {FavoriteScreenPage} from '../favorite.screen/favorite-screen.component';
 import {ProfileScreen} from '../profile-screen/profile-screen.component';
 import {CartScreen} from '../cart-screen/cart-screen.component';
 import {CatalogScreen} from '../catalog-screen/catalog-screen.component';
+import {useAppSelector} from '../../store/hooks/hooks';
 
-const Tab = createBottomTabNavigator();
+type TabNavigationParams = {
+  Home: undefined;
+  Catalog: undefined;
+  Cart: undefined;
+  Favorites: undefined;
+  Profile: undefined;
+};
 
 export function BottomTab() {
+  const Tab = createBottomTabNavigator<TabNavigationParams>();
+  const cart = useAppSelector(state => state.cart.items);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -42,7 +51,7 @@ export function BottomTab() {
         }}
       />
       <Tab.Screen
-        name="Корзина"
+        name="Cart"
         component={CartScreen}
         options={{
           tabBarLabel: 'Корзина',
@@ -50,6 +59,7 @@ export function BottomTab() {
             <CartIcon name="shopping-bag" color={color} size={size} />
           ),
           headerShown: false,
+          tabBarBadge: cart.length,
         }}
       />
       <Tab.Screen
@@ -66,7 +76,7 @@ export function BottomTab() {
       />
 
       <Tab.Screen
-        name="Профиль"
+        name="Profile"
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Профиль',

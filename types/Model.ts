@@ -92,6 +92,7 @@ export type StackNavigationParams = {
         product: IProductM
     }
     Home: undefined
+    Catalog : undefined
 }
 
 export type RootRouteProps<RouteName extends keyof StackNavigationParams> =
