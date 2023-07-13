@@ -1,5 +1,5 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ScrollView, Text, View, Button} from 'react-native';
+import {ScrollView, Text, View, Button, Image} from 'react-native';
 import {StackNavigationParams} from '../../../types/Model';
 import {useAppSelector} from '../../store/hooks/hooks';
 import {CardFavorites} from '../../ui/cards/card-favorites.component';
@@ -24,10 +24,16 @@ export function FavoriteScreenPage({
 
   return (
     <View style={styles.favorite}>
-      <Text style={styles.title}>Избранное</Text>
-      <Text style={{textAlign: 'center'}}>{faroriteThings()}</Text>
+      <View style={styles.titleFavorite}>
+        <Text style={styles.title}>Избранное</Text>
+        <Text style={{textAlign: 'center'}}>{faroriteThings()}</Text>
+      </View>
       {favorites.length === 0 ? (
         <View style={styles.favoriteEmpty}>
+          <Image
+            style={styles.imageEmpty}
+            source={require('../../../public/images/favorite/favorite.png')}
+          />
           <Text style={{fontSize: 25, color: 'black'}}>
             В избранном пока пусто
           </Text>

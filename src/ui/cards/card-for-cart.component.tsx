@@ -1,6 +1,6 @@
 import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import {IProductM, StackNavigationParams} from '../../../types/Model';
-import styles from './card-component.style';
+import styles from './card-for-cart.style';
 import Heart from 'react-native-vector-icons/FontAwesome';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Button from '../button/button.component';
@@ -9,7 +9,7 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
 import {addToCart} from '../../store/reducers/Cart';
 import {addToFavorites} from '../../store/reducers/Favorites';
 
-export function CardItem({
+export function CardForCart({
   product,
   navigation,
 }: {

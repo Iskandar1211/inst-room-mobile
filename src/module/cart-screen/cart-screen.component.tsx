@@ -5,20 +5,29 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  Button,
 } from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
 import styles from './cart-screen.style';
 import Minus from 'react-native-vector-icons/Feather';
 import Plus from 'react-native-vector-icons/Feather';
 import {decrementQuantity, incrementQuantity} from '../../store/reducers/Cart';
-import Button from '../../ui/button/button.component';
+import ButtonDefault from '../../ui/button/button.component';
 import {useState} from 'react';
 import {ModalBottom} from '../../ui/modals/modal-bottom.component';
 import Dots from 'react-native-vector-icons/Entypo';
 import {ModalOptionsCart} from '../../ui/modals/modal-options-cart.component';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {StackNavigationParams} from '../../../types/Model';
+import {CardForCart} from '../../ui/cards/card-for-cart.component';
 
-export function CartScreen() {
+export function CartScreen({
+  navigation,
+}: {
+  navigation: NativeStackNavigationProp<StackNavigationParams, 'Home'>;
+}) {
   const productInCart = useAppSelector(state => state.cart.items);
+  const products = useAppSelector(state => state.products.products);
 
   const dispatch = useAppDispatch();
 
@@ -37,56 +46,88 @@ export function CartScreen() {
       return `${productInCart.length} товара`;
     } else if (productInCart.length >= 5) {
       return `${productInCart.length} товаров`;
+    } else if (productInCart.length === 0) {
+      return 'Нет товаров';
     }
   };
 
   return (
     <View style={styles.cart}>
-      <Text style={styles.title}>Корзина</Text>
-      <Text style={{textAlign: 'center'}}>{faroriteCart()}</Text>
-      {productInCart.length === 0 && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={styles.titleCart}>
+        <Text style={styles.title}>Корзина</Text>
+        <Text style={{textAlign: 'center'}}>{faroriteCart()}</Text>
+      </View>
+      {productInCart.length === 0 ? (
+        <View style={styles.cartEmpty}>
+          <Image
+            style={styles.imageEmpty}
+            source={require('../../../public/images/favorite/cart.png')}
+          />
           <Text style={{fontSize: 25, color: 'black'}}>
             Ваша корзина еще пусто
           </Text>
-        </View>
-      )}
-      <ScrollView style={styles.cartItemBox}>
-        {productInCart.map(product => (
-          <View style={styles.cartItem} key={product.id}>
-            <Image style={styles.image} source={product.img} />
-            <View style={styles.cartItemBody}>
-              <Text style={styles.name}>{product.name}</Text>
-              <Text>{product.price} ₽ / шт</Text>
-              <View style={styles.quantityBox}>
-                <TouchableOpacity
-                  onPress={() => dispatch(decrementQuantity(product.id))}>
-                  <Minus size={30} name="minus" />
-                </TouchableOpacity>
-                <Text>{product.quantity}</Text>
-                <TouchableOpacity
-                  onPress={() => dispatch(incrementQuantity(product.id))}>
-                  <Plus size={30} name="plus" />
-                </TouchableOpacity>
-              </View>
-              <Text>{product.total} ₽</Text>
-            </View>
-            <TouchableOpacity
-              onPress={() => setModalVisibleOptions(true)}
-              style={styles.dots}>
-              <Dots size={17} name="dots-three-horizontal" />
-            </TouchableOpacity>
-            <ModalOptionsCart
-              idForDelet={product.id}
-              product={product}
-              modalVisibleProfile={modalVisibleOptions}
-              setModalVisibleProfile={setModalVisibleOptions}
-            />
+          <Text>Перейдите в каталог, чтобы запулнить её </Text>
+          <Text>товарами</Text>
+          <Button
+            title="Продолжить покупки"
+            onPress={() => navigation.navigate('Catalog')}
+          />
+          <Text
+            style={{
+              textAlign: 'left',
+              width: '100%',
+              paddingLeft: 15,
+              fontSize: 20,
+              marginVertical: 5,
+            }}>
+            Обратите внимание
+          </Text>
+          <View style={{flex: 0.8}}>
+            <ScrollView horizontal={true}>
+              {products.map(product => (
+                <CardForCart product={product} />
+              ))}
+            </ScrollView>
           </View>
-        ))}
-      </ScrollView>
+        </View>
+      ) : (
+        <ScrollView style={styles.cartItemBox}>
+          {productInCart.map(product => (
+            <View style={styles.cartItem} key={product.id}>
+              <Image style={styles.image} source={product.img} />
+              <View style={styles.cartItemBody}>
+                <Text style={styles.name}>{product.name}</Text>
+                <Text>{product.price} ₽ / шт</Text>
+                <View style={styles.quantityBox}>
+                  <TouchableOpacity
+                    onPress={() => dispatch(decrementQuantity(product.id))}>
+                    <Minus size={30} name="minus" />
+                  </TouchableOpacity>
+                  <Text>{product.quantity}</Text>
+                  <TouchableOpacity
+                    onPress={() => dispatch(incrementQuantity(product.id))}>
+                    <Plus size={30} name="plus" />
+                  </TouchableOpacity>
+                </View>
+                <Text>{product.total} ₽</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => setModalVisibleOptions(true)}
+                style={styles.dots}>
+                <Dots size={17} name="dots-three-horizontal" />
+              </TouchableOpacity>
+              <ModalOptionsCart
+                idForDelet={product.id}
+                product={product}
+                modalVisibleProfile={modalVisibleOptions}
+                setModalVisibleProfile={setModalVisibleOptions}
+              />
+            </View>
+          ))}
+        </ScrollView>
+      )}
       {productInCart.length > 0 && (
-        <Button
+        <ButtonDefault
           onPress={() => setModalVisibleProfile(true)}
           title={`Прейти к оформление заказа \n     ${faroriteCart()} на сумму ${totalPrice} ₽`}
           styleView={styles.buttonView}
