@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Text, View, ScrollView} from 'react-native';
 import {IProductM, RootNavigationProps} from '../../../types/Model';
 import {useAppSelector} from '../../store/hooks/hooks';
-import {CardItem} from '../../ui/card/card.component';
+import {CardItem} from '../../ui/cards/card.component';
 import {Slider} from '../../ui/slider/slider.component';
 import styles from './home-screen.style';
 

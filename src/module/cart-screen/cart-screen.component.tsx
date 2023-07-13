@@ -30,9 +30,20 @@ export function CartScreen() {
   const [modalVisibleProfile, setModalVisibleProfile] = useState(false);
   const [modalVisibleOptions, setModalVisibleOptions] = useState(false);
 
+  const faroriteCart = () => {
+    if (productInCart.length === 1) {
+      return `${productInCart.length} товар`;
+    } else if (productInCart.length > 1 && productInCart.length < 5) {
+      return `${productInCart.length} товара`;
+    } else if (productInCart.length >= 5) {
+      return `${productInCart.length} товаров`;
+    }
+  };
+
   return (
     <View style={styles.cart}>
       <Text style={styles.title}>Корзина</Text>
+      <Text style={{textAlign: 'center'}}>{faroriteCart()}</Text>
       {productInCart.length === 0 && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{fontSize: 25, color: 'black'}}>
@@ -42,42 +53,42 @@ export function CartScreen() {
       )}
       <ScrollView style={styles.cartItemBox}>
         {productInCart.map(product => (
-            <View style={styles.cartItem} key={product.id}>
-              <Image style={styles.image} source={product.img} />
-              <View style={styles.cartItemBody}>
-                <Text style={styles.name}>{product.name}</Text>
-                <Text>{product.price} ₽ / шт</Text>
-                <View style={styles.quantityBox}>
-                  <TouchableOpacity
-                    onPress={() => dispatch(decrementQuantity(product.id))}>
-                    <Minus size={30} name="minus" />
-                  </TouchableOpacity>
-                  <Text>{product.quantity}</Text>
-                  <TouchableOpacity
-                    onPress={() => dispatch(incrementQuantity(product.id))}>
-                    <Plus size={30} name="plus" />
-                  </TouchableOpacity>
-                </View>
-                <Text>{product.total} ₽</Text>
+          <View style={styles.cartItem} key={product.id}>
+            <Image style={styles.image} source={product.img} />
+            <View style={styles.cartItemBody}>
+              <Text style={styles.name}>{product.name}</Text>
+              <Text>{product.price} ₽ / шт</Text>
+              <View style={styles.quantityBox}>
+                <TouchableOpacity
+                  onPress={() => dispatch(decrementQuantity(product.id))}>
+                  <Minus size={30} name="minus" />
+                </TouchableOpacity>
+                <Text>{product.quantity}</Text>
+                <TouchableOpacity
+                  onPress={() => dispatch(incrementQuantity(product.id))}>
+                  <Plus size={30} name="plus" />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() => setModalVisibleOptions(true)}
-                style={styles.dots}>
-                <Dots size={17} name="dots-three-horizontal" />
-              </TouchableOpacity>
-              <ModalOptionsCart
-                idForDelet={product.id}
-                product={product}
-                modalVisibleProfile={modalVisibleOptions}
-                setModalVisibleProfile={setModalVisibleOptions}
-              />
+              <Text>{product.total} ₽</Text>
             </View>
+            <TouchableOpacity
+              onPress={() => setModalVisibleOptions(true)}
+              style={styles.dots}>
+              <Dots size={17} name="dots-three-horizontal" />
+            </TouchableOpacity>
+            <ModalOptionsCart
+              idForDelet={product.id}
+              product={product}
+              modalVisibleProfile={modalVisibleOptions}
+              setModalVisibleProfile={setModalVisibleOptions}
+            />
+          </View>
         ))}
       </ScrollView>
       {productInCart.length > 0 && (
         <Button
           onPress={() => setModalVisibleProfile(true)}
-          title={`Прейти к оформление заказа \n     ${productInCart.length} товара на сумму ${totalPrice} ₽`}
+          title={`Прейти к оформление заказа \n     ${faroriteCart()} на сумму ${totalPrice} ₽`}
           styleView={styles.buttonView}
           styleText={styles.buttonText}
         />

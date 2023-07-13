@@ -1,6 +1,6 @@
 import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import {IProductM, StackNavigationParams} from '../../../types/Model';
-import styles from './card.style';
+import styles from './card-component.style';
 import Heart from 'react-native-vector-icons/FontAwesome';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Button from '../button/button.component';

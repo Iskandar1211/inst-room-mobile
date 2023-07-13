@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Image, ScrollView, Text, TouchableHighlight, View} from 'react-native';
 import {IProductM, RootNavigationProps} from '../../../types/Model';
-import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
+import {useAppSelector} from '../../store/hooks/hooks';
 import {CatalogCard} from '../../ui/catalog-card/catalog-card.component';
 import {SearchInput} from '../../ui/search-input/saearch-input.component';
 import styles from './catalog-screen.style';
@@ -35,15 +35,24 @@ export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
 
   const onSearchMessages = (text: string) => {
     setSearchValue(text);
-    setSelectedItem('');
     if (text === '') {
-      setFilteredProducts([]);
+      const selectProduct = products.filter(product => {
+        if (selectedItem !== 'Новинки' && selectedItem !== 'Акции') {
+         return product.categories === selectedItem;
+        } else if (selectedItem === 'Новинки') {
+         return product.isNew === true;
+        } else if (selectedItem === 'Акции') {
+         return product.isNew === false;
+        }
+      });
+      setFilteredProducts(selectProduct);
     } else {
       setFilteredProducts(
         products.filter(product => product.name.toLowerCase().includes(text)),
       );
     }
   };
+  
   return (
     <View style={styles.catalogContainer}>
       <View style={styles.containerSearchInput}>

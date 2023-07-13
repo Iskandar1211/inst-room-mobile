@@ -1,18 +1,5 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
-    favorite: {
-        flex: 1
-    },
-    title: {
-        textAlign: 'center',
-        fontSize: 20,
-        textTransform: 'uppercase',
-        marginBottom: 10
-    },
-    favoriteItemBox: {
-        paddingBottom: 20,
-        paddingHorizontal: 15
-    },
     favoriteItem: {
         backgroundColor: 'white',
         paddingVertical: 10,
@@ -29,7 +16,7 @@ export default StyleSheet.create({
     name: {
         fontSize: 14,
         fontWeight: "500",
-        width: '80%'
+        width:'80%'
     },
     favoriteItemBody: {
         flex: 1,
@@ -61,11 +48,5 @@ export default StyleSheet.create({
         position: 'absolute',
         right: 15,
         top: 2
-    },
-    favoriteEmpty: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap:10,
     }
 })
