@@ -42,36 +42,36 @@ export function CartScreen() {
       )}
       <ScrollView style={styles.cartItemBox}>
         {productInCart.map(product => (
-          <View style={styles.cartItem} key={product.id}>
-            <Image style={styles.image} source={product.img} />
-            <View style={styles.cartItemBody}>
-              <Text style={styles.name}>{product.name}</Text>
-              <Text>{product.price} ₽ / шт</Text>
-              <View style={styles.quantityBox}>
-                <TouchableOpacity
-                  onPress={() => dispatch(decrementQuantity(product.id))}>
-                  <Minus size={30} name="minus" />
-                </TouchableOpacity>
-                <Text>{product.quantity}</Text>
-                <TouchableOpacity
-                  onPress={() => dispatch(incrementQuantity(product.id))}>
-                  <Plus size={30} name="plus" />
-                </TouchableOpacity>
+            <View style={styles.cartItem} key={product.id}>
+              <Image style={styles.image} source={product.img} />
+              <View style={styles.cartItemBody}>
+                <Text style={styles.name}>{product.name}</Text>
+                <Text>{product.price} ₽ / шт</Text>
+                <View style={styles.quantityBox}>
+                  <TouchableOpacity
+                    onPress={() => dispatch(decrementQuantity(product.id))}>
+                    <Minus size={30} name="minus" />
+                  </TouchableOpacity>
+                  <Text>{product.quantity}</Text>
+                  <TouchableOpacity
+                    onPress={() => dispatch(incrementQuantity(product.id))}>
+                    <Plus size={30} name="plus" />
+                  </TouchableOpacity>
+                </View>
+                <Text>{product.total} ₽</Text>
               </View>
-              <Text>{product.total} ₽</Text>
+              <TouchableOpacity
+                onPress={() => setModalVisibleOptions(true)}
+                style={styles.dots}>
+                <Dots size={17} name="dots-three-horizontal" />
+              </TouchableOpacity>
+              <ModalOptionsCart
+                idForDelet={product.id}
+                product={product}
+                modalVisibleProfile={modalVisibleOptions}
+                setModalVisibleProfile={setModalVisibleOptions}
+              />
             </View>
-            <TouchableOpacity
-              onPress={() => setModalVisibleOptions(true)}
-              style={styles.dots}>
-              <Dots size={17} name="dots-three-horizontal" />
-            </TouchableOpacity>
-            <ModalOptionsCart
-              idForDelet={product.id}
-              product={product}
-              modalVisibleProfile={modalVisibleOptions}
-              setModalVisibleProfile={setModalVisibleOptions}
-            />
-          </View>
         ))}
       </ScrollView>
       {productInCart.length > 0 && (

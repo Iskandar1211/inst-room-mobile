@@ -21,7 +21,7 @@ export default StyleSheet.create({
     },
     title: {
         fontSize: 12,
-        width: '80%'
+        width: '65%',
     },
     inStock: {
         fontSize: 10,
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     },
     icons: {
         position: 'absolute',
-        right: 5,
+        right: 15,
         top: 5,
         flexDirection: 'row',
         gap: 5,

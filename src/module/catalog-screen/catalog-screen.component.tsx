@@ -8,20 +8,6 @@ import styles from './catalog-screen.style';
 
 export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
   const products = useAppSelector(state => state.products.products);
-  const dispatch = useAppDispatch();
-
-  const [categories, setCategories] = useState('');
-  let categori: string = '';
-  if (categories === 'painting-supplies') {
-    categori = 'Малярные товары';
-  } else if (categories === 'electrical') {
-    categori = 'Электрооборудование';
-  } else if (categories === 'overalls') {
-    categori = 'Спецодежда';
-  } else if (categories === 'for-home-and-cottage') {
-    categori = 'Для дома и дачи';
-  }
-
   const [filteredProducts, setFilteredProducts] = useState<IProductM[]>([]);
 
   useEffect(() => {
@@ -58,8 +44,6 @@ export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
       );
     }
   };
-  console.log(searchValue);
-
   return (
     <View style={styles.catalogContainer}>
       <View style={styles.containerSearchInput}>
@@ -69,114 +53,114 @@ export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
         />
       </View>
       <View style={styles.navigateButtons}>
-          <TouchableHighlight onPress={() => onFilteredProducts('Новинки')}>
-            <View
-              style={[
-                styles.navigateButton,
-                {
-                  backgroundColor:
-                    selectedItem === 'Новинки' ? '#F05A00' : 'white',
-                },
-              ]}>
-              <Image
-                style={styles.navigateImage}
-                source={require('../../../public/images/catalogImages/News.png')}
-              />
-              <Text style={styles.navigateText}>Новинка</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => onFilteredProducts('Акции')}>
-            <View
-              style={[
-                styles.navigateButton,
-                {
-                  backgroundColor:
-                    selectedItem === 'Акции' ? '#F05A00' : 'white',
-                },
-              ]}>
-              <Image
-                style={styles.navigateImage}
-                source={require('../../../public/images/catalogImages/aksii.jpg')}
-              />
-              <Text style={styles.navigateText}>Акции</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => onFilteredProducts('Малярные товары')}>
-            <View
-              style={[
-                styles.navigateButton,
-                {
-                  backgroundColor:
-                    selectedItem === 'Малярные товары' ? '#F05A00' : 'white',
-                },
-              ]}>
-              <Image
-                style={styles.navigateImage}
-                source={require('../../../public/images/products/painting-supplies/1.jpg')}
-              />
-              <Text style={styles.navigateText}>Малярные товары</Text>
-            </View>
-          </TouchableHighlight>
+        <TouchableHighlight onPress={() => onFilteredProducts('Новинки')}>
+          <View
+            style={[
+              styles.navigateButton,
+              {
+                backgroundColor:
+                  selectedItem === 'Новинки' ? '#F05A00' : 'white',
+              },
+            ]}>
+            <Image
+              style={styles.navigateImage}
+              source={require('../../../public/images/catalogImages/News.png')}
+            />
+            <Text style={styles.navigateText}>Новинка</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={() => onFilteredProducts('Акции')}>
+          <View
+            style={[
+              styles.navigateButton,
+              {
+                backgroundColor: selectedItem === 'Акции' ? '#F05A00' : 'white',
+              },
+            ]}>
+            <Image
+              style={styles.navigateImage}
+              source={require('../../../public/images/catalogImages/aksii.jpg')}
+            />
+            <Text style={styles.navigateText}>Акции</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => onFilteredProducts('Малярные товары')}>
+          <View
+            style={[
+              styles.navigateButton,
+              {
+                backgroundColor:
+                  selectedItem === 'Малярные товары' ? '#F05A00' : 'white',
+              },
+            ]}>
+            <Image
+              style={styles.navigateImage}
+              source={require('../../../public/images/products/painting-supplies/1.jpg')}
+            />
+            <Text style={styles.navigateText}>Малярные товары</Text>
+          </View>
+        </TouchableHighlight>
 
-          <TouchableHighlight onPress={() => onFilteredProducts('Спецодежда')}>
-            <View
-              style={[
-                styles.navigateButton,
-                {
-                  backgroundColor:
-                    selectedItem === 'Спецодежда' ? '#F05A00' : 'white',
-                },
-              ]}>
-              <Image
-                style={styles.navigateImage}
-                source={require('../../../public/images/products/overalls/1.jpg')}
-              />
-              <Text style={styles.navigateText}>Спецодежда</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => onFilteredProducts('Электрооборудование')}>
-            <View
-              style={[
-                styles.navigateButton,
-                {
-                  backgroundColor:
-                    selectedItem === 'Электрооборудование'
-                      ? '#F05A00'
-                      : 'white',
-                },
-              ]}>
-              <Image
-                style={styles.navigateImage}
-                source={require('../../../public/images/products/electrical/1.jpg')}
-              />
-              <Text style={styles.navigateText}>Электрооборудование</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => onFilteredProducts('Для дома и дачи')}>
-            <View
-              style={[
-                styles.navigateButton,
-                {
-                  backgroundColor:
-                    selectedItem === 'Для дома и дачи' ? '#F05A00' : 'white',
-                },
-              ]}>
-              <Image
-                style={styles.navigateImage}
-                source={require('../../../public/images/products/for-home-and-cottage/1.jpg')}
-              />
-              <Text style={styles.navigateText}>Для дома и дачи</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
+        <TouchableHighlight onPress={() => onFilteredProducts('Спецодежда')}>
+          <View
+            style={[
+              styles.navigateButton,
+              {
+                backgroundColor:
+                  selectedItem === 'Спецодежда' ? '#F05A00' : 'white',
+              },
+            ]}>
+            <Image
+              style={styles.navigateImage}
+              source={require('../../../public/images/products/overalls/1.jpg')}
+            />
+            <Text style={styles.navigateText}>Спецодежда</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => onFilteredProducts('Электрооборудование')}>
+          <View
+            style={[
+              styles.navigateButton,
+              {
+                backgroundColor:
+                  selectedItem === 'Электрооборудование' ? '#F05A00' : 'white',
+              },
+            ]}>
+            <Image
+              style={styles.navigateImage}
+              source={require('../../../public/images/products/electrical/1.jpg')}
+            />
+            <Text style={styles.navigateText}>Электрооборудование</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => onFilteredProducts('Для дома и дачи')}>
+          <View
+            style={[
+              styles.navigateButton,
+              {
+                backgroundColor:
+                  selectedItem === 'Для дома и дачи' ? '#F05A00' : 'white',
+              },
+            ]}>
+            <Image
+              style={styles.navigateImage}
+              source={require('../../../public/images/products/for-home-and-cottage/1.jpg')}
+            />
+            <Text style={styles.navigateText}>Для дома и дачи</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
       <ScrollView style={styles.scrollView}>
-
-          {filteredProducts.map(product => (
-            <CatalogCard navigation={navigation} key={product.id} product={product} />
-          ))}
+        {filteredProducts.map(product => (
+          <CatalogCard
+            navigation={navigation}
+            key={product.id}
+            product={product}
+          />
+        ))}
       </ScrollView>
     </View>
   );

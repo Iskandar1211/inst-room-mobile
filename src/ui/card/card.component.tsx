@@ -4,13 +4,10 @@ import styles from './card.style';
 import Heart from 'react-native-vector-icons/FontAwesome';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Button from '../button/button.component';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
-import {
-  addToCart,
-  decrementQuantity,
-  incrementQuantity,
-} from '../../store/reducers/Cart';
+import {addToCart} from '../../store/reducers/Cart';
+import {addToFavorites} from '../../store/reducers/Favorites';
 
 export function CardItem({
   product,
@@ -29,27 +26,42 @@ export function CardItem({
     setAddCartActive(true);
   };
 
+  const onAddToFavorites = () => {
+    dispatch(addToFavorites(product));
+    setFavoriteActive(true);
+  };
+
+  const cart = useAppSelector(state => state.cart.items);
+
+  useEffect(() => {
+    if (!addCartActive) {
+      if (cart.find(el => el.id === product.id)) {
+        return setAddCartActive(true);
+      }
+    }
+  }, [cart]);
+
+  const favorites = useAppSelector(state => state.favorites.items);
+
+  useEffect(() => {
+    if (!favoriteActive) {
+      if (favorites.find(el => el.id === product.id)) {
+        return setFavoriteActive(true);
+      }
+    }
+  }, [favoriteActive]);
+
   return (
     <View style={styles.cardContainer}>
       {!favoriteActive ? (
-        <Heart
-          onPress={() => setFavoriteActive(true)}
-          name="heart-o"
-          size={25}
-        />
+        <Heart onPress={onAddToFavorites} name="heart-o" size={25} />
       ) : (
-        <Heart
-          onPress={() => setFavoriteActive(false)}
-          name="heart"
-          size={25}
-          style={{color: 'red'}}
-        />
+        <Heart name="heart" size={25} style={{color: 'red'}} />
       )}
       <TouchableOpacity
         style={styles.cardBody}
         onPress={() => navigation.navigate('ProductInfo', {product})}>
         <Image style={styles.image} source={product.img} />
-
         <Text style={styles.title}>{product.name}</Text>
         <Text style={styles.price}>{product.price} ₽</Text>
       </TouchableOpacity>
@@ -71,7 +83,7 @@ export function CardItem({
         ) : (
           <TouchableOpacity style={styles.buttonBox}>
             <Button
-            onPress={()=> Alert.alert('Уже добавлено в корзине')}
+              onPress={() => Alert.alert('Уже добавлено в корзине')}
               styleView={styles.buttonViewAdd}
               styleText={styles.buttonText}
               title="Добавлено"

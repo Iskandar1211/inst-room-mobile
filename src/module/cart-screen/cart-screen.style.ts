@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     cart: {
-        paddingHorizontal: 10,
         flex: 1
     },
     title: {
@@ -11,11 +10,12 @@ export default StyleSheet.create({
         marginBottom: 10
     },
     cartItemBox: {
-        paddingBottom: 20
+        paddingBottom: 20,
+        paddingHorizontal:15
     },
     cartItem: {
         backgroundColor: 'white',
-        paddingVertical: 5,
+        paddingVertical: 10,
         paddingHorizontal: 15,
         flexDirection: 'row',
         gap: 10,
@@ -28,7 +28,8 @@ export default StyleSheet.create({
     },
     name: {
         fontSize: 12,
-        fontWeight: "500"
+        fontWeight: "500",
+        width:'80%'
     },
     cartItemBody: {
         flex: 1,
@@ -53,7 +54,7 @@ export default StyleSheet.create({
     },
     dots: {
         position: 'absolute',
-        right: 5,
+        right: 15,
         top: 2
     }
 })

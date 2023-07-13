@@ -2,18 +2,33 @@ import {useState} from 'react';
 import {Text, View, TouchableOpacity, Modal} from 'react-native';
 import {StyleProps} from 'react-native-reanimated';
 import Close from 'react-native-vector-icons/EvilIcons';
-import MdLogIn from 'react-native-vector-icons/Ionicons';
-import User from 'react-native-vector-icons/FontAwesome5';
+import Heart from 'react-native-vector-icons/EvilIcons';
+import Delete from 'react-native-vector-icons/MaterialCommunityIcons';
+import {IProductM} from '../../../types/Model';
+import {useAppDispatch} from '../../store/hooks/hooks';
+import {removeFromCart} from '../../store/reducers/Cart';
+import {addToFavorites, removeFromFavorites} from '../../store/reducers/Favorites';
 
-export function ModalBottom({
+export function ModalOptionsFavorite({
   modalBodyStyle,
   modalVisibleProfile,
   setModalVisibleProfile,
+  product,
+  idForDelet,
 }: {
   modalBodyStyle?: StyleProps;
   modalVisibleProfile: boolean;
   setModalVisibleProfile: (arg: boolean) => void;
+  product: IProductM;
+  idForDelet: string;
 }) {
+  const dispatch = useAppDispatch();
+
+
+  const onDeleteInFavorite = () => {
+    dispatch(removeFromFavorites(idForDelet));
+    setModalVisibleProfile(false);
+  };
   return (
     <Modal
       animationType="slide"
@@ -51,34 +66,15 @@ export function ModalBottom({
             </View>
             <View>
               <TouchableOpacity
+                onPress={onDeleteInFavorite}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
                   gap: 20,
                   marginTop: 20,
                 }}>
-                <MdLogIn name="md-log-in-outline" size={30} />
-                <Text style={{fontSize: 16}}>Войти в аккаунт</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 20,
-                  marginTop: 20,
-                }}>
-                <User name="user" size={25} />
-                <Text style={{fontSize: 16}}>Зарегистрироваться</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 20,
-                  marginTop: 20,
-                }}>
-                <User name="user-times" size={25} />
-                <Text style={{fontSize: 16}}>Заказать без регестрации</Text>
+                <Delete name="delete-outline" size={25} />
+                <Text style={{fontSize: 16}}>Удалить из избранного</Text>
               </TouchableOpacity>
             </View>
           </View>

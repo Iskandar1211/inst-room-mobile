@@ -43,7 +43,7 @@ export function ModalOptionsCart({
         style={{
           flex: 1,
           justifyContent: 'flex-end',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
         }}
         onPress={() => setModalVisibleProfile(false)}>
         <View

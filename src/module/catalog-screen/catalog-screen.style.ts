@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     catalogContainer: {
-        paddingHorizontal: 15,
         flex:1
     },
     containerSearchInput: {
@@ -10,6 +9,7 @@ export default StyleSheet.create({
     },
     scrollView: {
         marginTop: 15,
+        paddingHorizontal:15
     },
     navigateButtons: {
         marginTop:10,
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     },
     navigateText: {
         color: 'black',
-        fontSize: 10,
+        fontSize: 14,
         fontWeight: '400'
     },
     containerCards: {

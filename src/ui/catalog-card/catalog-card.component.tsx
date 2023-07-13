@@ -1,17 +1,15 @@
-import {Text, View, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
-import {
-  IProductM,
-  RootNavigationProps,
-  StackNavigationParams,
-} from '../../../types/Model';
+import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {IProductM, StackNavigationParams} from '../../../types/Model';
 import styles from './catalog-card.style';
 import Heart from 'react-native-vector-icons/FontAwesome';
 import Basket from 'react-native-vector-icons/SimpleLineIcons';
 import Chek from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useAppSelector} from '../../store/hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
+import {addToCart} from '../../store/reducers/Cart';
+import {addToFavorites} from '../../store/reducers/Favorites';
 
 export function CatalogCard({
   product,
@@ -23,7 +21,37 @@ export function CatalogCard({
   const [favoriteActive, setFavoriteActive] = useState(false);
   const [addCart, setAddCart] = useState(false);
   const cart = useAppSelector(state => state.cart.items);
-  const test = cart.filter(el => (el.name === product.name ? 1 : 0));
+
+  // const test = cart.filter(el => (el.name === product.name ? 1 : 0));
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!addCart) {
+      if (cart.find(el => el.id === product.id)) {
+        return setAddCart(true);
+      }
+    }
+  }, [cart]);
+
+  const onAddToCart = () => {
+    dispatch(addToCart(product));
+    setAddCart(true);
+  };
+  const onAddToFavorites = () => {
+    dispatch(addToFavorites(product));
+    setFavoriteActive(true);
+  };
+
+  const favorites = useAppSelector(state => state.favorites.items);
+
+  useEffect(() => {
+    if (!favoriteActive) {
+      if (favorites.find(el => el.id === product.id)) {
+        return setFavoriteActive(true);
+      }
+    }
+  }, [favoriteActive]);
 
   return (
     <View style={styles.catalogCard}>
@@ -43,23 +71,14 @@ export function CatalogCard({
 
       <View style={styles.icons}>
         {!favoriteActive ? (
-          <Heart
-            onPress={() => setFavoriteActive(true)}
-            name="heart-o"
-            size={15}
-          />
+          <Heart onPress={onAddToFavorites} name="heart-o" size={20} />
         ) : (
-          <Heart
-            onPress={() => setFavoriteActive(false)}
-            name="heart"
-            size={15}
-            style={{color: 'red'}}
-          />
+          <Heart name="heart" size={20} style={{color: 'red'}} />
         )}
-        {test.length > 0 ? (
-          <Chek color={'#F05A00'} size={15} name="check-circle" />
+        {addCart ? (
+          <Chek color={'#F05A00'} size={20} name="check-circle" />
         ) : (
-          <Basket onPress={() => setAddCart(true)} size={15} name="basket" />
+          <Basket onPress={onAddToCart} size={20} name="basket" />
         )}
       </View>
       {product.isNew && (
