@@ -92,7 +92,11 @@ export type StackNavigationParams = {
         product: IProductM
     }
     Home: undefined
-    Catalog : undefined
+    Catalog: undefined
+    Profile: undefined
+    Login: undefined
+    Registration : undefined
+    BottomTab : undefined
 }
 
 export type RootRouteProps<RouteName extends keyof StackNavigationParams> =
@@ -101,3 +105,6 @@ export type RootRouteProps<RouteName extends keyof StackNavigationParams> =
 export type RootNavigationProps<
     NavigationName extends keyof StackNavigationParams,
 > = NativeStackScreenProps<StackNavigationParams, NavigationName>
+
+
+

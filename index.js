@@ -9,7 +9,6 @@ import { store } from './src/store/store';
 import {Provider} from 'react-redux';
 
 
-
 const ReduxApp = () => (
     <Provider store={store}>
         <App />
