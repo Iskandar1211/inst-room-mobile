@@ -85,7 +85,7 @@ export function CartScreen({
           <View style={{flex: 0.8}}>
             <ScrollView horizontal={true}>
               {products.map(product => (
-                <CardForCart product={product} />
+                <CardForCart key={product.id} product={product} />
               ))}
             </ScrollView>
           </View>

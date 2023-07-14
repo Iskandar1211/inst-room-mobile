@@ -3,8 +3,11 @@ import {RootNavigationProps} from '../../../types/Model';
 import Button from '../../ui/button/button.component';
 import styles from './profile-screen.style';
 import Sun from 'react-native-vector-icons/Feather';
+import {ModalDarkMode} from '../../ui/modals/modal-darkMode.component';
+import {useState} from 'react';
 
 export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
+  const [modalVisibleDarkMode, setModalVisibleDarkMode] = useState(false);
   return (
     <ScrollView style={styles.profileContainer}>
       <View style={styles.profileBody}>
@@ -13,7 +16,7 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
           source={require('../../../public/images/block.png')}
         />
         <Text style={styles.ProfileBodyTitle}>Вы ещё не авторизовались</Text>
-        <Text style={{width: '80%',fontSize:16}}>
+        <Text style={{width: '80%', fontSize: 16}}>
           Войдите в свой аккаунт, чтобы получить доступ к информации о заказах,
           избранному, настройке уведемление и многому другому
         </Text>
@@ -28,7 +31,9 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
         </TouchableOpacity>
       </View>
       <View style={styles.helpUser}>
-        <TouchableOpacity style={styles.darkMode}>
+        <TouchableOpacity
+          onPress={() => setModalVisibleDarkMode(true)}
+          style={styles.darkMode}>
           <Sun color={'black'} name="sun" size={20} />
           <Text style={{color: 'black'}}>Цветовая тема</Text>
         </TouchableOpacity>
@@ -53,6 +58,10 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
         <Text>Поделиться приложением</Text>
         <Text>Inst-room, версия 0.0.1</Text>
       </View>
+      <ModalDarkMode
+        modalVisible={modalVisibleDarkMode}
+        setModalVisible={setModalVisibleDarkMode}
+      />
     </ScrollView>
   );
 }
