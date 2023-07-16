@@ -152,13 +152,13 @@ export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
           </View>
         </TouchableHighlight>
         <TouchableHighlight
-          onPress={() => onFilteredProducts('Для дома и дачи')}>
+          onPress={() => onFilteredProducts('Для дома и дачи')}>
           <View
             style={[
               styles.navigateButton,
               {
                 backgroundColor:
-                  selectedItem === 'Для дома и дачи' ? '#F05A00' : 'white',
+                  selectedItem === 'Для дома и дачи' ? '#F05A00' : 'white',
               },
             ]}>
             <Image

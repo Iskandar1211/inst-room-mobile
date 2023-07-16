@@ -1,59 +1,78 @@
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
-import {View, Text, TextInput, Switch} from 'react-native';
-import {IRegistrationM} from '../../../types/Model';
+import {View, Text, TextInput, Switch, Alert} from 'react-native';
+import {
+  IRegistrationM,
+  RootNavigationProps,
+  StackNavigationParams,
+} from '../../../types/Model';
 import Button from '../../ui/button/button.component';
 import {Header} from '../../ui/header/header.component';
 import styles from './registration-screen.style';
+import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
+import {setRegistration} from '../../store/reducers/Registration';
 
 export function RegistrationScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-  const [registration, setRegistration] = useState<IRegistrationM>({
-    name: '',
-    city: '',
-    email: '',
-    password: '',
-    phone: '',
-    role: 'user',
-  });
+  const registration = useAppSelector(state => state.registration.registration);
+  const dispatch = useAppDispatch();
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<StackNavigationParams, 'Registration'>
+    >();
 
   const addUser = () => {
-    axios.post('http://10.0.3.2:3009/registration', registration)
-      .then(response => console.log(response))
-      .catch(error => console.error(error));
+    axios
+      .post('http://10.0.3.2:3009/registration', registration)
+      .then(response => {
+        if (response.status === 200) {
+          Alert.alert('Регистрация успешно завершено');
+          navigation.navigate('Login');
+        }
+      })
+      .catch(error => Alert.alert(error));
   };
-  
 
   return (
     <View style={styles.RegistrationBox}>
       <Header title="Регистрация" />
       <View style={styles.inputForm}>
         <TextInput
-          onChangeText={text => setRegistration({...registration, name: text})}
+          onChangeText={text =>
+            dispatch(setRegistration({...registration, name: text}))
+          }
           style={styles.textInput}
           placeholder="Ваша имя"
         />
         <TextInput
-          onChangeText={text => setRegistration({...registration, city: text})}
+          onChangeText={text =>
+            dispatch(setRegistration({...registration, city: text}))
+          }
           style={styles.textInput}
           placeholder="Укажите город"
         />
         <TextInput
-          onChangeText={text => setRegistration({...registration, phone: text})}
+          onChangeText={text =>
+            dispatch(setRegistration({...registration, phone: text}))
+          }
           style={styles.textInput}
           placeholder="Номер телефона"
         />
         <TextInput
-          onChangeText={text => setRegistration({...registration, email: text})}
+          onChangeText={text =>
+            dispatch(setRegistration({...registration, email: text}))
+          }
           style={styles.textInput}
           placeholder="Адрес электронной почты"
         />
         <TextInput
           secureTextEntry={true}
           onChangeText={text =>
-            setRegistration({...registration, password: text})
+            dispatch(setRegistration({...registration, password: text}))
           }
           style={styles.textInput}
           placeholder="Пароль"
@@ -70,7 +89,7 @@ export function RegistrationScreen() {
         </View>
       </View>
       <Button
-      onPress={addUser}
+        onPress={addUser}
         title="Зарегистрироваться"
         styleText={styles.ButtonStyleText}
         styleView={styles.ButtonStyleView}

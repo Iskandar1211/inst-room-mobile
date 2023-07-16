@@ -1,10 +1,10 @@
+import {useEffect} from 'react';
 import {
   Text,
   View,
   Image,
   ScrollView,
   TouchableOpacity,
-  Modal,
   Button,
 } from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../store/hooks/hooks';
@@ -18,8 +18,9 @@ import {ModalBottom} from '../../ui/modals/modal-bottom.component';
 import Dots from 'react-native-vector-icons/Entypo';
 import {ModalOptionsCart} from '../../ui/modals/modal-options-cart.component';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {StackNavigationParams} from '../../../types/Model';
+import {IProductM, StackNavigationParams} from '../../../types/Model';
 import {CardForCart} from '../../ui/cards/card-for-cart.component';
+import axios from 'axios';
 
 export function CartScreen({
   navigation,
@@ -27,7 +28,12 @@ export function CartScreen({
   navigation: NativeStackNavigationProp<StackNavigationParams, 'Home'>;
 }) {
   const productInCart = useAppSelector(state => state.cart.items);
-  const products = useAppSelector(state => state.products.products);
+  const [products, setProducts] = useState<IProductM[]>([]);
+  useEffect(() => {
+    axios
+      .get('http://10.0.3.2:3009/products')
+      .then(response => setProducts(response.data));
+  }, []);
 
   const dispatch = useAppDispatch();
 
@@ -94,7 +100,7 @@ export function CartScreen({
         <ScrollView style={styles.cartItemBox}>
           {productInCart.map(product => (
             <View style={styles.cartItem} key={product.id}>
-              <Image style={styles.image} source={product.img} />
+              <Image style={styles.image} source={{uri:product.img}} />
               <View style={styles.cartItemBody}>
                 <Text style={styles.name}>{product.name}</Text>
                 <Text>{product.price} ₽ / шт</Text>

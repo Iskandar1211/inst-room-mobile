@@ -56,7 +56,7 @@ export function CatalogCard({
       <TouchableOpacity
         style={styles.cardBody}
         onPress={() => navigation.navigate('ProductInfo', {product})}>
-        <Image style={styles.image} source={product.img} />
+        <Image style={styles.image} source={{uri: product.img}} />
         <View style={styles.title}>
           <Text>{product.name}</Text>
           {product.inStock ? (

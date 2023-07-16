@@ -8,8 +8,6 @@ export default StyleSheet.create({
         borderRadius: 10
     },
     slide: {
-        width: 410,
-        height: 250,
         paddingHorizontal: 5,
         alignItems: 'center',
         justifyContent: 'center',
@@ -21,20 +19,4 @@ export default StyleSheet.create({
         resizeMode: 'cover',
         borderRadius: 10
     },
-    circleButtons: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20,
-    },
-    circleButton: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        backgroundColor: 'gray',
-        marginHorizontal: 5,
-    },
-    activeCircleButton: {
-        backgroundColor: 'blue',
-    }
 })

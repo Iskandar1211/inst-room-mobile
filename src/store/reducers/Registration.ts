@@ -1,59 +1,48 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ILogin, ILoginConfirm, IRegistration } from '../../../types/Model'
+import { ILogin, IRegistrationM } from '../../../types/Model'
 
 import { RootState } from '../store'
 
 interface IRegistrInterface {
-    registration: IRegistration
-    login: ILogin
-    loginConfirm: ILoginConfirm
+    registration: IRegistrationM
+    loginConfirm: ILogin
     isRegistred: boolean,
-    isLogin: boolean,
-    isLoginConfirm: boolean
-
 }
 
 const initialState: IRegistrInterface = {
     registration: {
-        id: Math.random().toString(),
-        lastName: "",
-        name: "",
-        phone: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        role: "user",
-        code: ''
-    },
-    login: {
-        phone: ""
+        name: '',
+        city: '',
+        email: '',
+        password: '',
+        phone: '',
+        role: 'user',
     },
     loginConfirm: {
-        code: ""
+        email: '',
+        password: '',
     },
     isRegistred: false,
-    isLogin: false,
-    isLoginConfirm: false
 }
 
 export const Registration = createSlice({
     name: 'registration',
     initialState,
     reducers: {
-        setRegistration: (state, action: PayloadAction<IRegistration>) => {
+        setRegistration: (state, action: PayloadAction<IRegistrationM>) => {
             state.registration = action.payload
         },
-        setLogin: (state, action: PayloadAction<ILogin>) => {
-            state.login = action.payload
-        },
-        setLoginConfirm: (state, action: PayloadAction<ILoginConfirm>) => {
+        setLoginConfirm: (state, action: PayloadAction<ILogin>) => {
             state.loginConfirm = action.payload
         },
+        setIsRegistred: (state, action: PayloadAction<boolean>) => {
+            state.isRegistred = action.payload
+        }
     },
 })
 
-export const { setRegistration, setLogin, setLoginConfirm } = Registration.actions
+export const { setRegistration, setLoginConfirm, setIsRegistred } = Registration.actions
 
 export const selectRegistration = (state: RootState) => state.registration
 
