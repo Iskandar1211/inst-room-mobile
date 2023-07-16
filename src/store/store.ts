@@ -5,7 +5,7 @@ import { cartSlice } from './reducers/Cart'
 import { Registration } from './reducers/Registration';
 import { productsAdminSlice } from './reducers/ProductsAdmin';
 import { orderSlice } from './reducers/Order';
-import { productsSlice } from './reducers/Products';
+
 
 
 export const store = configureStore({
@@ -16,7 +16,6 @@ export const store = configureStore({
     registration: Registration.reducer,
     productsAdmin: productsAdminSlice.reducer,
     order: orderSlice.reducer,
-    products: productsSlice.reducer
   },
 })
 

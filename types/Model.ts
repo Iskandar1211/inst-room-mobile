@@ -70,23 +70,22 @@ export interface IHistoryOfOrderForServer {
     payments: IPayment[]
 }
 
-export interface IRegistration {
-    id: string,
-    lastName: string,
+export interface IRegistrationM {
+    id?: string,
     name: string,
+    city: string,
     phone: string,
     email: string,
     password: string,
-    confirmPassword: string
     role: string
-    code: string
 }
+
 export interface ILogin {
-    phone: string
+    phone?: string
+    email?: string,
+    password?: string
 }
-export interface ILoginConfirm {
-    code: string
-}
+
 export type StackNavigationParams = {
     ProductInfo: {
         product: IProductM
@@ -95,8 +94,8 @@ export type StackNavigationParams = {
     Catalog: undefined
     Profile: undefined
     Login: undefined
-    Registration : undefined
-    BottomTab : undefined
+    Registration: undefined
+    BottomTab: undefined
 }
 
 export type RootRouteProps<RouteName extends keyof StackNavigationParams> =

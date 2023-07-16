@@ -1,13 +1,35 @@
-import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Platform,
+  Linking,
+  Alert,
+} from 'react-native';
 import {RootNavigationProps} from '../../../types/Model';
 import Button from '../../ui/button/button.component';
 import styles from './profile-screen.style';
 import Sun from 'react-native-vector-icons/Feather';
 import {ModalDarkMode} from '../../ui/modals/modal-darkMode.component';
 import {useState} from 'react';
+import {ModalConsultant} from '../../ui/modals/modal-consultant.component';
 
 export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
   const [modalVisibleDarkMode, setModalVisibleDarkMode] = useState(false);
+  const [modalVisibleConsultant, setModalVisibleConsultant] = useState(false);
+
+  const dialCall = (number: string) => {
+    let phoneNumber = '';
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${number}`;
+    } else {
+      phoneNumber = `telprompt:${number}`;
+    }
+    Linking.openURL(phoneNumber);
+  };
+
   return (
     <ScrollView style={styles.profileContainer}>
       <View style={styles.profileBody}>
@@ -37,21 +59,15 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
           <Sun color={'black'} name="sun" size={20} />
           <Text style={{color: 'black'}}>Цветовая тема</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setModalVisibleConsultant(true)}>
           <Text style={{fontSize: 16, color: 'black'}}>
             Написать консультанту
           </Text>
           <Text style={{fontSize: 12}}>Чат с оператором поддержки</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> dialCall('+7(343)287-67-00')}>
           <Text style={{fontSize: 16, color: 'black'}}>+7 (343) 287-67-00</Text>
           <Text style={{fontSize: 12}}>Звонок оператору поддержки</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={{fontSize: 16, color: 'black'}}>
-            Сообщить о проблеме
-          </Text>
-          <Text style={{fontSize: 12}}>Если нашли проблему в приложении</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.footerProfile}>
@@ -61,6 +77,10 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
       <ModalDarkMode
         modalVisible={modalVisibleDarkMode}
         setModalVisible={setModalVisibleDarkMode}
+      />
+      <ModalConsultant
+        modalVisible={modalVisibleConsultant}
+        setModalVisible={setModalVisibleConsultant}
       />
     </ScrollView>
   );

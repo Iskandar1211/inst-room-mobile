@@ -66,12 +66,12 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 10,
+        gap:5
     },
     imageEmpty: {
         resizeMode: 'contain',
         width: 200,
-        height: 200
+        height: 200,
     },
     cardsView: {
         flex: 1

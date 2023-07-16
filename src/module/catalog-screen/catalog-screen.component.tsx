@@ -1,19 +1,26 @@
+import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {Image, ScrollView, Text, TouchableHighlight, View} from 'react-native';
 import {IProductM, RootNavigationProps} from '../../../types/Model';
-import {useAppSelector} from '../../store/hooks/hooks';
 import {CatalogCard} from '../../ui/catalog-card/catalog-card.component';
 import {SearchInput} from '../../ui/search-input/saearch-input.component';
 import styles from './catalog-screen.style';
 
 export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
-  const products = useAppSelector(state => state.products.products);
+  const [products, setProducts] = useState<IProductM[]>([]);
+
   const [filteredProducts, setFilteredProducts] = useState<IProductM[]>([]);
+
+  useEffect(() => {
+    axios
+      .get('http://10.0.3.2:3009/products')
+      .then(response => setProducts(response.data));
+  }, []);
 
   useEffect(() => {
     setFilteredProducts(products.filter(product => product.isNew === true));
     setSelectedItem('Новинки');
-  }, []);
+  }, [products]);
 
   const [selectedItem, setSelectedItem] = useState<string>('');
 
@@ -38,11 +45,11 @@ export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
     if (text === '') {
       const selectProduct = products.filter(product => {
         if (selectedItem !== 'Новинки' && selectedItem !== 'Акции') {
-         return product.categories === selectedItem;
+          return product.categories === selectedItem;
         } else if (selectedItem === 'Новинки') {
-         return product.isNew === true;
+          return product.isNew === true;
         } else if (selectedItem === 'Акции') {
-         return product.isNew === false;
+          return product.isNew === false;
         }
       });
       setFilteredProducts(selectProduct);
@@ -52,7 +59,7 @@ export function CatalogScreen({navigation}: RootNavigationProps<'Catalog'>) {
       );
     }
   };
-  
+
   return (
     <View style={styles.catalogContainer}>
       <View style={styles.containerSearchInput}>

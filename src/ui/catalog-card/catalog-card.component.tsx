@@ -22,8 +22,6 @@ export function CatalogCard({
   const [addCart, setAddCart] = useState(false);
   const cart = useAppSelector(state => state.cart.items);
 
-  // const test = cart.filter(el => (el.name === product.name ? 1 : 0));
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {

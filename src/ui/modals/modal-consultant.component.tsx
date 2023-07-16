@@ -1,10 +1,14 @@
 import {Text, View, TouchableOpacity, Modal} from 'react-native';
 import {StyleProps} from 'react-native-reanimated';
 import Close from 'react-native-vector-icons/EvilIcons';
-import Check from 'react-native-vector-icons/AntDesign';
+import Telegram from 'react-native-vector-icons/EvilIcons';
+import Viber from 'react-native-vector-icons/Fontisto';
+import Vk from 'react-native-vector-icons/Entypo';
+import Instagram from 'react-native-vector-icons/AntDesign';
+
 import {useAppDispatch} from '../../store/hooks/hooks';
 
-export function ModalDarkMode({
+export function ModalConsultant({
   modalBodyStyle,
   modalVisible,
   setModalVisible,
@@ -47,7 +51,7 @@ export function ModalDarkMode({
                   fontWeight: '500',
                   fontSize: 18,
                 }}>
-                Цветовая тема
+                Консультант
               </Text>
             </View>
             <View>
@@ -55,12 +59,11 @@ export function ModalDarkMode({
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent:'space-between',
                   gap: 20,
                   marginTop: 20,
                 }}>
-                <Text style={{fontSize: 16}}>Светлая тема</Text>
-                <Check name='check' size={25}/>
+                <Telegram name="sc-telegram" size={25} />
+                <Text style={{fontSize: 16}}>Telegram</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
@@ -69,7 +72,28 @@ export function ModalDarkMode({
                   gap: 20,
                   marginTop: 20,
                 }}>
-                <Text style={{fontSize: 16}}>Темная тема</Text>
+                <Viber name="viber" size={25} />
+                <Text style={{fontSize: 16}}>Viber</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 20,
+                  marginTop: 20,
+                }}>
+                <Vk name="vk" size={25} />
+                <Text style={{fontSize: 16}}>ВКонтакте</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 20,
+                  marginTop: 20,
+                }}>
+                <Instagram name="instagram" size={25} />
+                <Text style={{fontSize: 16}}>Instagram</Text>
               </TouchableOpacity>
             </View>
           </View>

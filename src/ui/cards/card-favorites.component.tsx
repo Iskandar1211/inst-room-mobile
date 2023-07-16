@@ -1,11 +1,5 @@
 import {useState} from 'react';
-import {
-  Alert,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, Image, Text, TouchableOpacity, View} from 'react-native';
 import {IProductM} from '../../../types/Model';
 import {useAppDispatch} from '../../store/hooks/hooks';
 import {addToCart} from '../../store/reducers/Cart';
@@ -28,7 +22,7 @@ export function CardFavorites({product}: {product: IProductM}) {
   };
   return (
     <View style={styles.favoriteItem} key={product.id}>
-      <Image style={styles.image} source={product.img} />
+      <Image style={styles.image} source={{uri: product.img}} />
       <View style={styles.favoriteItemBody}>
         <Text style={{fontWeight: '500'}}>{product.price} ₽</Text>
         <Text style={styles.name}>{product.name}</Text>

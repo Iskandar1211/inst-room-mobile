@@ -1,12 +1,10 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import {Text, View, ScrollView} from 'react-native';
+import {Text, View, ScrollView, Image} from 'react-native';
 import {IProductM, RootNavigationProps} from '../../../types/Model';
-import {useAppSelector} from '../../store/hooks/hooks';
 import {CardItem} from '../../ui/cards/card.component';
 import {Slider} from '../../ui/slider/slider.component';
 import styles from './home-screen.style';
-
 
 export function HomeScreen({navigation}: RootNavigationProps<'Home'>) {
   const [paintingSupplies, setPaintingSupplies] = useState<IProductM[]>([]);
@@ -14,23 +12,32 @@ export function HomeScreen({navigation}: RootNavigationProps<'Home'>) {
   const [forHomeAndCottage, setForHomeAndCottage] = useState<IProductM[]>([]);
   const [electricals, setElectricals] = useState<IProductM[]>([]);
 
-  const products = useAppSelector(state => state.products.products);
-
   useEffect(() => {
-    setPaintingSupplies(
-      products.filter(product => product.categories === 'Малярные товары'),
-    );
-    setOveralls(
-      products.filter(product => product.categories === 'Спецодежда'),
-    );
-    setForHomeAndCottage(
-      products.filter(product => product.categories === 'Для дома и дачи'),
-    );
-    setElectricals(
-      products.filter(product => product.categories === 'Электрооборудование'),
-    );
-  }, []);
+    axios
+      .get('http://10.0.3.2:3009/painting-supplies')
+      .then(response => setPaintingSupplies(response.data))
+      .catch(error =>
+        console.error('Error fetching painting supplies:', error),
+      );
 
+    axios
+      .get('http://10.0.3.2:3009/overalls')
+      .then(response => setOveralls(response.data))
+      .catch(error => console.error('Error fetching overalls:', error));
+
+    axios
+      .get('http://10.0.3.2:3009/electrical')
+      .then(response => setElectricals(response.data))
+      .catch(error => console.error('Error fetching electricals:', error));
+
+    axios
+      .get('http://10.0.3.2:3009/for-home-and-cottage')
+      .then(response => setForHomeAndCottage(response.data))
+      .catch(error =>
+        console.error('Error fetching for home and cottage:', error),
+      );
+  }, []);
+  
   return (
     <View style={styles.homeScreen}>
       <Slider />

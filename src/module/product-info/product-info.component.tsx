@@ -49,7 +49,7 @@ const ProductInfo = () => {
           }
         />
         <View style={styles.productInfoContainer}>
-          <Image style={styles.image} source={product.img} />
+          <Image style={styles.image} source={{uri: product.img}} />
           <Text style={styles.title}>{product.name}</Text>
           <Text style={styles.detailed}>{product.detailed}</Text>
           <Text style={styles.price}>{product.price} ₽</Text>

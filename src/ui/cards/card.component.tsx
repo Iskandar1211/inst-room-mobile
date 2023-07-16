@@ -61,7 +61,7 @@ export function CardItem({
       <TouchableOpacity
         style={styles.cardBody}
         onPress={() => navigation?.navigate('ProductInfo', {product})}>
-        <Image style={styles.image} source={product.img} />
+        <Image style={styles.image} source={{uri: product.img}} />
         <Text style={styles.title}>{product.name}</Text>
         <Text style={styles.price}>{product.price} ₽</Text>
       </TouchableOpacity>
