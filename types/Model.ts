@@ -1,6 +1,5 @@
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ImageProps } from "react-native";
 
 export interface IProductM {
     id: string,
@@ -94,7 +93,10 @@ export type StackNavigationParams = {
     Profile: undefined
     Login: undefined
     Registration: undefined
-    BottomTab: undefined
+    BottomTab: undefined,
+    Delivery: undefined,
+    Payment: undefined,
+    Cart: undefined
 }
 
 export type RootRouteProps<RouteName extends keyof StackNavigationParams> =

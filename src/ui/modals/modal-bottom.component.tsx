@@ -4,15 +4,19 @@ import {StyleProps} from 'react-native-reanimated';
 import Close from 'react-native-vector-icons/EvilIcons';
 import MdLogIn from 'react-native-vector-icons/Ionicons';
 import User from 'react-native-vector-icons/FontAwesome5';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {StackNavigationParams} from '../../../types/Model';
 
 export function ModalBottom({
   modalBodyStyle,
   modalVisibleProfile,
   setModalVisibleProfile,
+  navigation,
 }: {
   modalBodyStyle?: StyleProps;
   modalVisibleProfile: boolean;
   setModalVisibleProfile: (arg: boolean) => void;
+  navigation: NativeStackNavigationProp<StackNavigationParams, 'Cart'>;
 }) {
   return (
     <Modal
@@ -51,6 +55,7 @@ export function ModalBottom({
             </View>
             <View>
               <TouchableOpacity
+                onPress={() => navigation.navigate('Login')}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -61,6 +66,7 @@ export function ModalBottom({
                 <Text style={{fontSize: 16}}>Войти в аккаунт</Text>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => navigation.navigate('Registration')}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -71,6 +77,7 @@ export function ModalBottom({
                 <Text style={{fontSize: 16}}>Зарегистрироваться</Text>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => navigation.navigate('Delivery')}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',

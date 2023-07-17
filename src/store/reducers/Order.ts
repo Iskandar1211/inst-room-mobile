@@ -14,11 +14,9 @@ const initialState: ordersState = {
         created: moment().format('d.MM.YYYY'),
         received: moment().format('d.MM.YYYY'),
         purchases: [],
-        orders: [],
         deliveryInfo: [],
         payments: []
     }
-
 }
 
 export const orderSlice = createSlice({
@@ -28,10 +26,6 @@ export const orderSlice = createSlice({
         addOrderNumber: (state, action: PayloadAction<number>) => {
             const newOrder: number = action.payload
             state.order.orderNumber = newOrder
-        },
-        addToOrder: (state, action: PayloadAction<IOrder>) => {
-            const newOrder: IOrder = action.payload
-            state.order.orders.push(newOrder)
         },
         addToPurchases: (state, action: PayloadAction<IProductM[]>) => {
             const newPurchases: IProductM[] = action.payload
@@ -52,7 +46,6 @@ export const orderSlice = createSlice({
                 created: moment().format('d.MM.YYYY'),
                 received: moment().format('d.MM.YYYY'),
                 purchases: [],
-                orders: [],
                 deliveryInfo: [],
                 payments: []
             }
@@ -60,7 +53,7 @@ export const orderSlice = createSlice({
     }
 });
 
-export const { addToOrder, addToPurchases, addToDeliveryInfo, addTopPayments, clearOrder, addOrderNumber } = orderSlice.actions
+export const { addToPurchases, addToDeliveryInfo, addTopPayments, clearOrder, addOrderNumber } = orderSlice.actions
 
 export const selectCartItems = (state: RootState) => state.cart.items
 

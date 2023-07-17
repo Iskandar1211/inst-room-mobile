@@ -25,7 +25,7 @@ import axios from 'axios';
 export function CartScreen({
   navigation,
 }: {
-  navigation: NativeStackNavigationProp<StackNavigationParams, 'Home'>;
+  navigation: NativeStackNavigationProp<StackNavigationParams, 'Cart'>;
 }) {
   const productInCart = useAppSelector(state => state.cart.items);
   const [products, setProducts] = useState<IProductM[]>([]);
@@ -56,6 +56,8 @@ export function CartScreen({
       return 'Нет товаров';
     }
   };
+
+  const isRegistred = useAppSelector(state => state.registration.isRegistred);
 
   return (
     <View style={styles.cart}>
@@ -100,7 +102,7 @@ export function CartScreen({
         <ScrollView style={styles.cartItemBox}>
           {productInCart.map(product => (
             <View style={styles.cartItem} key={product.id}>
-              <Image style={styles.image} source={{uri:product.img}} />
+              <Image style={styles.image} source={{uri: product.img}} />
               <View style={styles.cartItemBody}>
                 <Text style={styles.name}>{product.name}</Text>
                 <Text>{product.price} ₽ / шт</Text>
@@ -134,13 +136,20 @@ export function CartScreen({
       )}
       {productInCart.length > 0 && (
         <ButtonDefault
-          onPress={() => setModalVisibleProfile(true)}
+          onPress={() => {
+            if (!isRegistred) {
+              setModalVisibleProfile(true);
+            } else {
+              navigation.navigate('Delivery');
+            }
+          }}
           title={`Прейти к оформление заказа \n     ${faroriteCart()} на сумму ${totalPrice} ₽`}
           styleView={styles.buttonView}
           styleText={styles.buttonText}
         />
       )}
       <ModalBottom
+        navigation={navigation}
         modalVisibleProfile={modalVisibleProfile}
         setModalVisibleProfile={setModalVisibleProfile}
       />
