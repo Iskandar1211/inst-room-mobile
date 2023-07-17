@@ -55,7 +55,6 @@ export interface IHistoryOfOrder {
     created: string,
     received: string,
     purchases: IProductM[],
-    orders: IOrder[],
     deliveryInfo: IDelivery[],
     payments: IPayment[]
 }

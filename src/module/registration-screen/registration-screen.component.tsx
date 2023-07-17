@@ -4,8 +4,6 @@ import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
 import {View, Text, TextInput, Switch, Alert} from 'react-native';
 import {
-  IRegistrationM,
-  RootNavigationProps,
   StackNavigationParams,
 } from '../../../types/Model';
 import Button from '../../ui/button/button.component';

@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     profileContainer: {
         paddingHorizontal: 15,
-        paddingTop: 10
+        paddingTop: 10,
+        flex: 1
     },
     profileBody: {
         alignItems: 'center',
@@ -47,5 +48,25 @@ export default StyleSheet.create({
         marginTop: 20,
         marginBottom: 10,
         alignItems: 'center'
+    },
+    userProfileInfoBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    userImage: {
+        backgroundColor: '#1E90FF',
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100,
+    },
+    oredersBox: {
+        marginVertical: 10,
+        padding: 10,
+        minHeight: 400,
+        backgroundColor: 'white'
     }
+
 })

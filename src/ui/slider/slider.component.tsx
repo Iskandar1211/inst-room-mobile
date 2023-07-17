@@ -3,8 +3,6 @@ import {
   Image,
   ImageProps,
   View,
-  Animated,
-  TouchableOpacity,
 } from 'react-native';
 import {FlatList} from 'react-native';
 import styles from './slider.style';
