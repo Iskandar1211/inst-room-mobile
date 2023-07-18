@@ -96,7 +96,8 @@ export type StackNavigationParams = {
     BottomTab: undefined,
     Delivery: undefined,
     Payment: undefined,
-    Cart: undefined
+    Cart: undefined,
+    PersonalData: undefined
 }
 
 export type RootRouteProps<RouteName extends keyof StackNavigationParams> =

@@ -4,7 +4,15 @@ import {useNavigation} from '@react-navigation/native';
 import styles from './header-component.style';
 import ArrowLeft from 'react-native-vector-icons/FontAwesome5';
 
-export function Header({title}: {title: string}) {
+export function Header({
+  title,
+  ready,
+  onPress,
+}: {
+  title: string;
+  ready?: string;
+  onPress?: () => void;
+}) {
   const navigation = useNavigation();
 
   return (
@@ -13,6 +21,9 @@ export function Header({title}: {title: string}) {
         <ArrowLeft style={styles.icon} size={25} name="arrow-left" />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
+      <TouchableOpacity onPress={onPress}>
+        <Text style={{alignItems: 'flex-end'}}>{ready}</Text>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -41,8 +41,6 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
       .catch(error => console.log(error));
   }, []);
 
-  
-
   const dialCall = (number: string) => {
     let phoneNumber = '';
     if (Platform.OS === 'android') {
@@ -82,7 +80,9 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
         </View>
       ) : (
         <View>
-          <View style={styles.userProfileInfoBox}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('PersonalData')}
+            style={styles.userProfileInfoBox}>
             <View style={{flexDirection: 'row', gap: 15}}>
               <View style={styles.userImage}>
                 <Text style={{fontSize: 20, color: 'white'}}>
@@ -97,7 +97,7 @@ export function ProfileScreen({navigation}: RootNavigationProps<'Profile'>) {
               </View>
             </View>
             <ArrowRight name="keyboard-arrow-right" size={20} />
-          </View>
+          </TouchableOpacity>
           <View style={styles.oredersBox}>
             <Text
               style={{
